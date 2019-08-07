@@ -3,6 +3,8 @@ version: "2.0"
 services:
   web:
     build: .
+    env_file: 
+      - .env
     environment:
       PORT: 3000
       FLASK_ENV: development
