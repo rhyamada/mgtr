@@ -1,2 +1,4 @@
 Flask
 ebaysdk
+prometheus_client
+ldap3

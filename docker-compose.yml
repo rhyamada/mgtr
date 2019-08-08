@@ -5,6 +5,8 @@ services:
     build: .
     env_file: 
       - .env
+    tty: true
+    stdin_open: true
     environment:
       PORT: 3000
       FLASK_ENV: development
