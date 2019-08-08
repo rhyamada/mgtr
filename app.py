@@ -13,7 +13,7 @@ def index():
             'itemFilter': [
                 {'name': 'ListingType','value': 'Auction'},
                 {'name': 'Seller','value': os.environ['SELLERS'].split(' ')},
-                {'name': 'MaxPrice', 'value': '15', 'paramName': 'Currency', 'paramValue': 'USD'},
+                {'name': 'MaxPrice', 'value': '10', 'paramName': 'Currency', 'paramValue': 'USD'},
             ],
             'sortOrder': 'EndTimeSoonest',
             'paginationInput': {
