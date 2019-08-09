@@ -2,6 +2,7 @@
 
 <head>
     <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
     @media (hover: none) {
@@ -29,7 +30,7 @@
         {% endif %}
         {% for i in items %}
         <div class="card text-center">
-            <img class="card-img-top" src="{{ i.galleryURL }}" alt="image">
+            <!--<img class="card-img-top" src="{{ i.galleryURL }}" alt="image">-->
             <div class="card-body">
                 <h2 class="card-title">${{ i.price }} [{{ i.diff }}]</h2>
                 <p class="card-text">{{ i.sellerInfo.sellerUserName }}</p>
