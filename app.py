@@ -24,8 +24,8 @@ def index():
                 {'name': 'EndTimeTo',   'value': d.isoformat()}
             ],
             paginationInput=dict(entriesPerPage=20),
-
-            sortOrder='EndTimeSoonest'
+            sortOrder='EndTimeSoonest',
+            outputSelector=['SellerInfo','GalleryInfo']
         )
         res = Connection(appid=os.environ['EBAY'], config_file=None).execute('findItemsAdvanced', api_request).dict()
         if 'item' in res['searchResult']:

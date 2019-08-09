@@ -4,26 +4,25 @@
     <title></title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
-        .cards{
-			display: flex;
-			flex-flow: row wrap;
-			justify-content: space-between;            
+    @media (hover: none) {
+        .card-columns {
+            column-count: 1;
         }
-        .card{
-            flex: 1 1 28rem;
+    }
+    @media (hover: hover) {
+        .card-columns {
+            column-count: 5;
         }
-        .card-img-overlay{
-            color: fuchsia;
-        }
-    </style>
+    }
+   </style>
 </head>
 
 <body>
-    <div class="cards">
+    <div class="card-columns">
         {% if error %}
         <div class="card">
-            <h5 class="card-header">Error</h5>
             <div class="card-body">
+                <h5 class="card-title">Error</h5>
                 <p class="card-text">{{ error }}</p>
             </div>
         </div>
@@ -32,12 +31,16 @@
         <div class="card text-center">
             <img class="card-img-top" src="{{ i.galleryURL }}" alt="image">
             <div class="card-body">
-                <h3 class="card-title">${{ i.price }}</h3>
-                <h4 class="card-text">[{{ i.diff }}]</h4>
-                <h5 class="card-text">{{ i.title }}</h5>
-                <a href="{{ i.viewItemURL }}" target="_blank">{{ i.viewItemURL }}</a>
+                <h2 class="card-title">${{ i.price }} [{{ i.diff }}]</h2>
+                <p class="card-text">{{ i.sellerInfo.sellerUserName }}</p>
+                <p class="card-text">{{ i.sellerInfo.positiveFeedbackPercent }}% #{{ i.sellerInfo.feedbackScore }} @{{ i.location }}</p>
+                <p class="card-text">{{ i.title }}</p>
+                <a class="btn btn-info" href="{{ i.viewItemURL }}" target="_blank"> eBay link </a>
+                <a class="btn btn-info" href="https://offer.ebay.com/ws/eBayISAPI.dll?MakeBid&item={{ i.itemId }}&fb=2" target="_blank"> Bid </a>
+                <pre style="display:none;">{{ i.json }}</pre>
             </div>
         </div>
+        
         {% endfor %}
     </div>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
