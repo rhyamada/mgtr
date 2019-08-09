@@ -10,8 +10,8 @@ ire = re.compile('P(?P<days>[0-9]+)DT(?P<hours>[0-9]+)H(?P<minutes>[0-9]+)M(?P<s
 def index():
     error = "error"
     try:
-        price = float(request.values.get('p',10))
-        diff = timedelta(hours=float(request.values.get('h',6)))
+        price = float(request.values.get('p',15))
+        diff = timedelta(hours=float(request.values.get('h',8)))
         datetime.now()+diff
         d = datetime.now()+diff
         items = []

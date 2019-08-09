@@ -30,7 +30,9 @@
         {% endif %}
         {% for i in items %}
         <div class="card text-center">
-            <!--<img class="card-img-top" src="{{ i.galleryURL }}" alt="image">-->
+                <img class="card-img-top" src="{{ i.galleryPlusPictureURL }}"
+                onerror="this.onerror=null;this.src='{{ i.galleryURL }}';"
+                alt="image">
             <div class="card-body">
                 <h2 class="card-title">${{ i.price }} [{{ i.diff }}]</h2>
                 <p class="card-text">{{ i.sellerInfo.sellerUserName }}</p>
