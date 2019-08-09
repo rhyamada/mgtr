@@ -25,15 +25,16 @@ def index():
             ],
             paginationInput=dict(entriesPerPage=20),
             sortOrder='EndTimeSoonest',
-            outputSelector=['SellerInfo','GalleryInfo']
+            outputSelector=['SellerInfo','PictureURLSuperSize','PictureURLLarge']
         )
         res = Connection(appid=os.environ['EBAY'], config_file=None).execute('findItemsAdvanced', api_request).dict()
         if 'item' in res['searchResult']:
             for i in res['searchResult']['item']:
-                i['json']=json.dumps(i,indent=4)
                 i['price']=float(i['sellingStatus']['currentPrice']['value'])+float(i['shippingInfo']['shippingServiceCost']['value'])
                 if i['price']>price:
                     continue
+                i['imgs'] = [ i[n] for n in ['pictureURLSuperSize','pictureURLLarge','galleryPlusPictureURL','galleryURL'] if n in i]
+                i['json']=json.dumps(i,indent=4)
                 m = ire.match(i['sellingStatus']['timeLeft'])
                 if m:
                     i['diff'] = timedelta(**{k:int(v) for k,v in m.groupdict().items()})
