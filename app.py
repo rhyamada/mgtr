@@ -9,11 +9,11 @@ ire = re.compile('P(?P<days>[0-9]+)DT(?P<hours>[0-9]+)H(?P<minutes>[0-9]+)M(?P<s
 @app.route('/')
 def index():
     error = "error"
+    now = datetime.now()
     try:
         price = float(request.values.get('p',15))
         diff = timedelta(hours=float(request.values.get('h',8)))
-        datetime.now()+diff
-        d = datetime.now()+diff
+        d = now+diff
         items = []
         api_request = dict(
             itemFilter=[
@@ -27,6 +27,7 @@ def index():
             sortOrder='EndTimeSoonest',
             outputSelector=['SellerInfo','PictureURLSuperSize','PictureURLLarge']
         )
+
         res = Connection(appid=os.environ['EBAY'], config_file=None).execute('findItemsAdvanced', api_request).dict()
         if 'item' in res['searchResult']:
             for i in res['searchResult']['item']:
@@ -37,7 +38,7 @@ def index():
                 i['json']=json.dumps(i,indent=4)
                 m = ire.match(i['sellingStatus']['timeLeft'])
                 if m:
-                    i['diff'] = timedelta(**{k:int(v) for k,v in m.groupdict().items()})
+                    i['until'] = (now+timedelta(**{k:int(v) for k,v in m.groupdict().items()})).isoformat()+'Z'
                 items.append(i)
         error = None
     except Exception as e:

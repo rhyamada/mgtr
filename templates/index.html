@@ -5,17 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
-    @media (hover: none) {
-        .card-columns {
-            column-count: 1;
+        @media (hover: none) {
+            .card-columns {
+                column-count: 1;
+            }
         }
-    }
-    @media (hover: hover) {
-        .card-columns {
-            column-count: 5;
+
+        @media (hover: hover) {
+            .card-columns {
+                column-count: 5;
+            }
         }
-    }
-   </style>
+    </style>
 </head>
 
 <body>
@@ -30,23 +31,39 @@
         {% endif %}
         {% for i in items %}
         <div class="card text-center">
-                <img class="card-img-top" src="{{ i.imgs[0] }}"
-                onerror="this.onerror=null;this.src='{{ i.imgs[1] }}';"
+            <img class="card-img-top" src="{{ i.imgs[0] }}" onerror="this.onerror=null;this.src='{{ i.imgs[1] }}';"
                 alt="image">
             <div class="card-body">
-                <h2 class="card-title">${{ i.price }} [{{ i.diff }}]</h2>
+                <h2 class="card-title">${{ i.price }} [<span data-until="{{ i.until }}"></span>]</h2>
                 <p class="card-text">{{ i.sellerInfo.sellerUserName }}</p>
-                <p class="card-text">{{ i.sellerInfo.positiveFeedbackPercent }}% #{{ i.sellerInfo.feedbackScore }} @{{ i.location }}</p>
+                <p class="card-text">{{ i.sellerInfo.positiveFeedbackPercent }}% #{{ i.sellerInfo.feedbackScore }}
+                    @{{ i.location }}</p>
                 <p class="card-text">{{ i.title }}</p>
                 <a class="btn btn-info" href="{{ i.viewItemURL }}" target="_blank"> eBay link </a>
-                <a class="btn btn-info" href="https://offer.ebay.com/ws/eBayISAPI.dll?MakeBid&item={{ i.itemId }}&fb=2" target="_blank"> Bid </a>
+                <a class="btn btn-info" href="https://offer.ebay.com/ws/eBayISAPI.dll?MakeBid&item={{ i.itemId }}&fb=2"
+                    target="_blank"> Bid </a>
                 <pre style="display:none;">{{ i.json }}</pre>
             </div>
         </div>
-        
+
         {% endfor %}
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script>
+        window.setInterval(() => {
+            var now = new Date();
+            $('[data-until]').each((i,v) => {
+                v = $(v);
+                var t = [], s = Math.floor((new Date($(v).data('until'))-now)/1000);
+                while( s > 0 ){
+                    t.unshift( (s%60).toString().padStart(2,'0') );
+                    s = Math.floor( s/60 );
+                }
+                v.html(t.join(':'));
+            })
+        }, 1000);
+    </script>
 </body>
 
 </html>
