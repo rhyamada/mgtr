@@ -11,7 +11,7 @@ def index():
     error = "error"
     now = datetime.now()
     try:
-        price = float(request.values.get('p',20))
+        price = float(request.values.get('p',15))
         diff = timedelta(hours=float(request.values.get('h',24)))
         d = now+diff
         items = []
