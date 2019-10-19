@@ -23,7 +23,7 @@ def index():
                 {'name': 'MaxPrice', 'value': price },
                 {'name': 'EndTimeTo',   'value': d.isoformat()}
             ],
-            paginationInput=dict(entriesPerPage=20),
+            paginationInput=dict(entriesPerPage=40),
             sortOrder='EndTimeSoonest',
             outputSelector=['SellerInfo','PictureURLSuperSize','PictureURLLarge']
         )
