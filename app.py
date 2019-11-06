@@ -11,7 +11,7 @@ def index():
     error = "error"
     now = datetime.now()
     try:
-        price = float(request.values.get('p',15))
+        price = float(request.values.get('p',8))
         diff = timedelta(hours=float(request.values.get('h',24)))
         d = now+diff
         items = []
@@ -23,7 +23,7 @@ def index():
                 {'name': 'MaxPrice', 'value': price },
                 {'name': 'EndTimeTo',   'value': d.isoformat()}
             ],
-            paginationInput=dict(entriesPerPage=40),
+            paginationInput=dict(entriesPerPage=50),
             sortOrder='EndTimeSoonest',
             outputSelector=['SellerInfo','PictureURLSuperSize','PictureURLLarge']
         )
